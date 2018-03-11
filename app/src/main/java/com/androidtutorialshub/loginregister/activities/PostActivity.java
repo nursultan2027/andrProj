@@ -55,6 +55,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 post.setPostOwner(textInputEditTextPostOwner.getText().toString().trim());
                 dbhelper.addPost(post);
                 Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG).show();
+                Intent postsIntent = new Intent(getApplicationContext(), PostListActivity.class);
+                startActivity(postsIntent);
                 break;
         }
     }

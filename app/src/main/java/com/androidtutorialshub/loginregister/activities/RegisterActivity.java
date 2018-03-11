@@ -90,7 +90,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         inputValidation = new InputValidation(activity);
         databaseHelper = new DatabaseHelper(activity);
         user = new User();
-
     }
 
 
