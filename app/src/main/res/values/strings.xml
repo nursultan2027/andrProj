@@ -14,6 +14,7 @@
     <string name="error_message_email">Введите Valid Email</string>
     <string name="error_message_password">Введите пароль</string>
     <string name="success_message">Успешно</string>
+    <string name="success_dis">Эта функция пока не работает</string>
     <string name="text_not_member">Создать аккаунт</string>
     <string name="text_already_member">Войти</string>
     <string name="error_email_exists">Email Already Exists</string>

@@ -10,12 +10,15 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 
 import com.androidtutorialshub.loginregister.R;
 import com.androidtutorialshub.loginregister.model.Post;
 import com.androidtutorialshub.loginregister.sql.DatabaseHelper;
 import com.androidtutorialshub.loginregister.sql.dbHelper;
+
+import java.util.List;
 
 /**
  * Created by nurs on 10.03.18.
@@ -34,6 +37,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private AppCompatTextView textViewName;
 
     private AppCompatButton appCompatButtonPost;
+    private AppCompatButton appCompatButtonShow;
     private dbHelper dbhelper;
     private Post post;
 
@@ -55,9 +59,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                 post.setPostDis(textInputEditTextPostDis.getText().toString().trim());
                 post.setPostOwner(textViewName.getText().toString().trim());
                 dbhelper.addPost(post);
+                emptyInputEditText();
                 Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG).show();
-                Intent postsIntent = new Intent(getApplicationContext(), PostListActivity.class);
-                startActivity(postsIntent);
+                break;
+            case R.id.appCompatButtonShow:
+                Intent intentPost= new Intent(getApplicationContext(), PostListActivity.class);
+                startActivity(intentPost);
+                //                Snackbar.make(nestedScrollView, getString(R.string.success_dis), Snackbar.LENGTH_LONG).show();
                 break;
         }
     }
@@ -68,6 +76,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initListeners() {
         appCompatButtonPost.setOnClickListener(this);
+        appCompatButtonShow.setOnClickListener(this);
     }
     private void initViews() {
 
@@ -82,6 +91,11 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         String emailFromIntent = getIntent().getStringExtra("EMAIL");
         textViewName.setText(emailFromIntent);
         appCompatButtonPost = (AppCompatButton) findViewById(R.id.appCompatButtonPost);
+        appCompatButtonShow= (AppCompatButton) findViewById(R.id.appCompatButtonShow);
+    }
+    private void emptyInputEditText() {
+        textInputEditTextPostName.setText(null);
+        textInputEditTextPostDis.setText(null);
     }
 
 }

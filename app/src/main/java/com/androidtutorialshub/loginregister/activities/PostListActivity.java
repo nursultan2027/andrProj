@@ -43,43 +43,9 @@ public class PostListActivity extends AppCompatActivity{
         setContentView(R.layout.post_list);
         getSupportActionBar().hide();
         initObjects();
+        listPosts = dbhelper.getAllPosts();
     }
-
-    /**
-     * This method is to initialize objects to be used
-     */
     private void initObjects() {
-        listPosts = new ArrayList<>();
-        postsRecyclerAdapter = new PostsRecyclerAdapter(listPosts);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerViewPosts.setLayoutManager(mLayoutManager);
-        recyclerViewPosts.setItemAnimator(new DefaultItemAnimator());
-        recyclerViewPosts.setHasFixedSize(true);
-        recyclerViewPosts.setAdapter(postsRecyclerAdapter);
         dbhelper = new dbHelper(activity);
-        getDataFromSQLite();
-    }
-
-    /**
-     * This method is to fetch all user records from SQLite
-     */
-    private void getDataFromSQLite() {
-        // AsyncTask is used that SQLite operation not blocks the UI Thread.
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                listPosts.clear();
-                listPosts.addAll(dbhelper.getAllPost());
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                postsRecyclerAdapter.notifyDataSetChanged();
-            }
-        }.execute();
     }
 }

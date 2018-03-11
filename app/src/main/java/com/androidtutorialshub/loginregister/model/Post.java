@@ -11,6 +11,16 @@ public class Post {
     private String postDis;
     private String Owner;
 
+    public Post() {
+    }
+    // constructor
+    public Post(int id, String name, String _phone_number, String aa){
+        this.id = id;
+        this.postName = name;
+        this.postDis = _phone_number;
+        this.Owner = aa;
+    }
+
     public int getId() {
         return id;
     }

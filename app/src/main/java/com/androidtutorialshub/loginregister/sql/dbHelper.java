@@ -1,5 +1,8 @@
 package com.androidtutorialshub.loginregister.sql;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -8,125 +11,138 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.androidtutorialshub.loginregister.model.Post;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class dbHelper extends SQLiteOpenHelper {
 
+    // All Static variables
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "UserManager.db";
+    private static final String DATABASE_NAME = "contactsManager";
 
-    // User table name
-    private static final String TABLE_POST = "post";
+    // Contacts table name
+    private static final String TABLE_POST = "posts";
 
-    // User Table Columns names
-    private static final String COLUMN_POST_ID = "post_id";
-    private static final String COLUMN_POST_NAME = "post_name";
-    private static final String COLUMN_POST_DIS = "post_dis";
-    private static final String COLUMN_POST_OWNER = "post_owner";
-
-    // create table sql query
-    private String CREATE_POST_TABLE = "CREATE TABLE " + TABLE_POST + "("
-            + COLUMN_POST_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_POST_NAME + " TEXT,"
-            + COLUMN_POST_DIS + " TEXT," + COLUMN_POST_OWNER + " TEXT" + ")";
-
-    // drop table sql query
-    private String DROP_POST_TABLE = "DROP TABLE IF EXISTS " + TABLE_POST;
+    // Contacts Table Columns names
+    private static final String KEY_ID = "id";
+    private static final String KEY_NAME = "name";
+    private static final String KEY_DIS = "dis";
+    private static final String KEY_OWNER = "owner";
 
     public dbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String CREATE_POST_TABLE = "CREATE TABLE " + TABLE_POST + "("
+                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
+                + KEY_DIS + " TEXT" + ")";
         db.execSQL(CREATE_POST_TABLE);
     }
 
-
+    // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-        //Drop User Table if exist
-        db.execSQL(DROP_POST_TABLE);
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_POST);
 
         // Create tables again
         onCreate(db);
-
     }
 
+    /**
+     * All CRUD(Create, Read, Update, Delete) Operations
+     */
 
+    // Adding new contact
     public void addPost(Post post) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_POST_NAME, post.getName());
-        values.put(COLUMN_POST_DIS, post.getPostDis());
-        values.put(COLUMN_POST_OWNER, post.getPostOwner());
+        values.put(KEY_NAME, post.getName()); // Contact Name
+        values.put(KEY_DIS, post.getPostDis()); // Contact Phone
+        values.put(KEY_OWNER, post.getPostOwner()); // Contact Phone
 
         // Inserting Row
         db.insert(TABLE_POST, null, values);
-        db.close();
+        db.close(); // Closing database connection
     }
 
-    public List<Post> getAllPost() {
-        String[] columns = {
-                COLUMN_POST_ID,
-                COLUMN_POST_NAME,
-                COLUMN_POST_DIS,
-                COLUMN_POST_OWNER
-        };
-        String sortOrder =
-                COLUMN_POST_NAME + " ASC";
-        List<Post> postList = new ArrayList<>();
-
+    // Getting single contact
+    Post getPost(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_POST, //Table to query
-                columns,    //columns to return
-                null,        //columns for the WHERE clause
-                null,        //The values for the WHERE clause
-                null,       //group the rows
-                null,       //filter by row groups
-                sortOrder); //The sort order
+        Cursor cursor = db.query(TABLE_POST, new String[] { KEY_ID,
+                        KEY_NAME, KEY_DIS,KEY_OWNER  }, KEY_ID + "=?",
+                new String[] { String.valueOf(id) }, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
 
+        Post contact = new Post(Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        // return contact
+        return contact;
+    }
+
+    // Getting All Contacts
+    public List<Post> getAllPosts() {
+        List<Post> contactList = new ArrayList<Post>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_POST;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Post post = new Post();
-                post.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_POST_ID))));
-                post.setName(cursor.getString(cursor.getColumnIndex(COLUMN_POST_NAME)));
-                post.setPostDis(cursor.getString(cursor.getColumnIndex(COLUMN_POST_DIS)));
-                post.setPostOwner(cursor.getString(cursor.getColumnIndex(COLUMN_POST_OWNER)));
-                // Adding user record to list
-                postList.add(post);
+                Post contact = new Post();
+                contact.setId(Integer.parseInt(cursor.getString(0)));
+                contact.setName(cursor.getString(1));
+                contact.setPostDis(cursor.getString(2));
+                contact.setPostOwner(cursor.getString(3));
+                // Adding contact to list
+                contactList.add(contact);
             } while (cursor.moveToNext());
         }
-        cursor.close();
-        db.close();
 
-        return postList;
+        // return contact list
+        return contactList;
     }
-    public void updatePost(Post post) {
+
+    // Updating single contact
+    public int updateContact(Post post) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_POST_NAME, post.getName());
-        values.put(COLUMN_POST_DIS, post.getPostDis());
-        values.put(COLUMN_POST_OWNER, post.getPostOwner());
-
+        values.put(KEY_NAME, post.getName());
+        values.put(KEY_DIS, post.getPostDis());
+        values.put(KEY_OWNER, post.getPostOwner());
         // updating row
-        db.update(TABLE_POST, values, COLUMN_POST_ID + " = ?",
-                new String[]{String.valueOf(post.getId())});
-        db.close();
+        return db.update(TABLE_POST, values, KEY_ID + " = ?",
+                new String[] { String.valueOf(post.getId()) });
     }
 
+    // Deleting single contact
     public void deletePost(Post post) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_POST, COLUMN_POST_ID + " = ?",
-                new String[]{String.valueOf(post.getId())});
+        db.delete(TABLE_POST, KEY_ID + " = ?",
+                new String[] { String.valueOf(post.getId()) });
         db.close();
     }
+
+
+    // Getting contacts Count
+    public int getContactsCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_POST;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+
+        // return count
+        return cursor.getCount();
+    }
+
 }
