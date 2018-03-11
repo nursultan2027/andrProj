@@ -39,10 +39,13 @@
         android:text="@string/text_accounts"
         android:textColor="@android:color/black" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewUsers"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/appCompatButtonAddPost"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorTextHint"
+        android:text="@string/add_post" />
 
 </LinearLayout>
 
