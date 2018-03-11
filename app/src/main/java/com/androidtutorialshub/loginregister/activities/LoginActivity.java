@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * This method is to empty all input edit text
+     * This method is to empty all input edit textёёёёёёё
      */
     private void emptyInputEditText() {
         textInputEditTextEmail.setText(null);

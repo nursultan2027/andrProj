@@ -47,7 +47,7 @@
                 android:textColor="@color/colorTextHint" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/textViewEmail"
+                android:id="@+id/textViewDis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -69,7 +69,7 @@
                 android:textColor="@color/colorTextHint" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/textViewPassword"
+                android:id="@+id/textViewOwner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

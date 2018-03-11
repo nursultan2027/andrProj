@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
 import com.androidtutorialshub.loginregister.R;
@@ -30,7 +31,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextInputEditText textInputEditTextPostName;
     private TextInputEditText textInputEditTextPostDis;
-    private TextInputEditText textInputEditTextPostOwner;
+    private AppCompatTextView textViewName;
 
     private AppCompatButton appCompatButtonPost;
     private dbHelper dbhelper;
@@ -52,7 +53,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.appCompatButtonPost:
                 post.setName(textInputEditTextPostName.getText().toString().trim());
                 post.setPostDis(textInputEditTextPostDis.getText().toString().trim());
-                post.setPostOwner(textInputEditTextPostOwner.getText().toString().trim());
+                post.setPostOwner(textViewName.getText().toString().trim());
                 dbhelper.addPost(post);
                 Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG).show();
                 Intent postsIntent = new Intent(getApplicationContext(), PostListActivity.class);
@@ -66,7 +67,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initListeners() {
-
         appCompatButtonPost.setOnClickListener(this);
     }
     private void initViews() {
@@ -78,8 +78,9 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
         textInputEditTextPostName = (TextInputEditText) findViewById(R.id.textInputEditTextPostName);
         textInputEditTextPostDis = (TextInputEditText) findViewById(R.id.textInputEditTextPostDis);
-        textInputEditTextPostOwner = (TextInputEditText) findViewById(R.id.textInputEditTextPostOwner);
-
+        textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
+        String emailFromIntent = getIntent().getStringExtra("EMAIL");
+        textViewName.setText(emailFromIntent);
         appCompatButtonPost = (AppCompatButton) findViewById(R.id.appCompatButtonPost);
     }
 

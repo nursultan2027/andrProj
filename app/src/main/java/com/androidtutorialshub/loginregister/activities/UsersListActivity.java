@@ -46,6 +46,7 @@ public class UsersListActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()) {
             case R.id.appCompatButtonAddPost:
                 Intent intentPost= new Intent(getApplicationContext(), PostActivity.class);
+                intentPost.putExtra("EMAIL", textViewName.getText().toString().trim());
                 startActivity(intentPost);
                 break;
         }
@@ -58,6 +59,8 @@ public class UsersListActivity extends AppCompatActivity implements View.OnClick
     private void initViews() {
         appCompatButtonAddPost = (AppCompatButton) findViewById(R.id.appCompatButtonAddPost);
         textViewName = (AppCompatTextView) findViewById(R.id.textViewName);
+        String emailFromIntent = getIntent().getStringExtra("EMAIL");
+        textViewName.setText(emailFromIntent);
     }
 
 

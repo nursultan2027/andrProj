@@ -23,6 +23,15 @@
             android:layout_marginTop="40dp"
             android:src="@drawable/logo" />
 
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/text_usr" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
         <android.support.design.widget.TextInputLayout
             android:id="@+id/textInputLayoutPostName"
             android:layout_width="match_parent"
@@ -55,22 +64,6 @@
                 android:textColor="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textInputLayoutPostOwner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/textInputEditTextPostOwner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_owner"
-            android:inputType="text"
-            android:maxLines="1"
-            android:textColor="@android:color/white" />
-        </android.support.design.widget.TextInputLayout>
-
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/appCompatButtonPost"
             android:layout_width="match_parent"
@@ -78,6 +71,13 @@
             android:layout_marginTop="40dp"
             android:background="@color/colorTextHint"
             android:text="@string/add_post" />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/appCompatButtonShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorTextHint"
+            android:text="Посмотреть" />
     </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.v4.widget.NestedScrollView>

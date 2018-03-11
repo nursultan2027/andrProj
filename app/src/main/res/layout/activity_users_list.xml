@@ -27,25 +27,16 @@
             android:id="@+id/textViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+        
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/appCompatButtonAddPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorTextHint"
+            android:text="@string/add_post" />
 
     </android.support.v7.widget.LinearLayoutCompat>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingLeft="16dp"
-        android:paddingTop="5dp"
-        android:text="@string/text_accounts"
-        android:textColor="@android:color/black" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/appCompatButtonAddPost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@color/colorTextHint"
-        android:text="@string/add_post" />
-
 </LinearLayout>
 

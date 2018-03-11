@@ -29,13 +29,11 @@ import java.util.List;
 
 public class PostListActivity extends AppCompatActivity{
     private final AppCompatActivity activity = PostListActivity.this;
-    private NestedScrollView nestedScrollView;
 
-    //    private RecyclerView recyclerViewPosts;
+    private RecyclerView recyclerViewPosts;
     private List<Post> listPosts;
 
-//    private PostsRecyclerAdapter postsRecyclerAdapter;
-
+    private PostsRecyclerAdapter postsRecyclerAdapter;
     private dbHelper dbhelper;
 
 
@@ -44,51 +42,44 @@ public class PostListActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_list);
         getSupportActionBar().hide();
-        initViews();
-    }
-
-    private void initViews() {
-        nestedScrollView = (NestedScrollView) findViewById(R.id.nestedScrollView);
+        initObjects();
     }
 
     /**
      * This method is to initialize objects to be used
      */
-//    private void initObjects() {
-//        listPosts = new ArrayList<>();
-//        postsRecyclerAdapter = new PostsRecyclerAdapter(listPosts);
-//
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-//        recyclerViewPosts.setLayoutManager(mLayoutManager);
-//        recyclerViewPosts.setItemAnimator(new DefaultItemAnimator());
-//        recyclerViewPosts.setHasFixedSize(true);
-//        recyclerViewPosts.setAdapter(postsRecyclerAdapter);
-//        dbhelper = new dbHelper(activity);
-//
-//        String emailFromIntent = getIntent().getStringExtra("EMAIL");
-//        textViewName.setText(emailFromIntent);
-//        getDataFromSQLite();
-//    }
+    private void initObjects() {
+        listPosts = new ArrayList<>();
+        postsRecyclerAdapter = new PostsRecyclerAdapter(listPosts);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerViewPosts.setLayoutManager(mLayoutManager);
+        recyclerViewPosts.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewPosts.setHasFixedSize(true);
+        recyclerViewPosts.setAdapter(postsRecyclerAdapter);
+        dbhelper = new dbHelper(activity);
+        getDataFromSQLite();
+    }
 
     /**
      * This method is to fetch all user records from SQLite
      */
-//    private void getDataFromSQLite() {
-//        // AsyncTask is used that SQLite operation not blocks the UI Thread.
-//        new AsyncTask<Void, Void, Void>() {
-//            @Override
-//            protected Void doInBackground(Void... params) {
-//                listPosts.clear();
-//                listPosts.addAll(dbhelper.getAllPost());
-//
-//                return null;
-//            }
-//
-//            @Override
-//            protected void onPostExecute(Void aVoid) {
-//                super.onPostExecute(aVoid);
-//                postsRecyclerAdapter.notifyDataSetChanged();
-//            }
-//        }.execute();
-//    }
+    private void getDataFromSQLite() {
+        // AsyncTask is used that SQLite operation not blocks the UI Thread.
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                listPosts.clear();
+                listPosts.addAll(dbhelper.getAllPost());
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                postsRecyclerAdapter.notifyDataSetChanged();
+            }
+        }.execute();
+    }
 }

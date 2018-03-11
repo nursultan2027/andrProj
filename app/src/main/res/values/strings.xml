@@ -3,12 +3,13 @@
     <string name="text_accounts">Посты</string>
     <string name="hint_name">Name</string>
     <string name="hint_email">Email</string>
-    <string name="hint_dis">Discpition</string>
+    <string name="hint_dis">Описание</string>
     <string name="hint_owner">Пользователь</string>
     <string name="hint_password">Пароль</string>
     <string name="hint_confirm_password">Подтвердите пароль</string>
-    <string name="text_login">Login</string>
-    <string name="text_register">Register</string>
+    <string name="text_login">Войти</string>
+    <string name="text_logIN">Вспомнили пароль? Войти</string>
+    <string name="text_register">Зарегистрироваться</string>
     <string name="error_message_name">Введите Full Name</string>
     <string name="error_message_email">Введите Valid Email</string>
     <string name="error_message_password">Введите пароль</string>
@@ -21,6 +22,7 @@
     <string name="action_settings">Settings</string>
     <string name="text_hello">Здравствуй,</string>
     <string name="text_title">Nurs Android Project</string>
-    <string name="add_post">Add Post</string>
-    <string name="cancel">Cancel</string>
+    <string name="add_post">Добавить пост</string>
+    <string name="cancel">Отмена</string>
+    <string name="text_usr">Пользователь</string>
 </resources>

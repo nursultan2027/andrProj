@@ -55,8 +55,8 @@ public class PostsRecyclerAdapter extends RecyclerView.Adapter<PostsRecyclerAdap
         public PostViewHolder(View view) {
             super(view);
             textViewName = (AppCompatTextView) view.findViewById(R.id.textViewName);
-            textViewDis = (AppCompatTextView) view.findViewById(R.id.textViewEmail);
-            textViewOwner = (AppCompatTextView) view.findViewById(R.id.textViewPassword);
+            textViewDis = (AppCompatTextView) view.findViewById(R.id.textViewDis);
+            textViewOwner = (AppCompatTextView) view.findViewById(R.id.textViewOwner);
         }
     }
 
