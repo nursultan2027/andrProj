@@ -33,7 +33,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     private TextInputEditText textInputEditTextPostOwner;
 
     private AppCompatButton appCompatButtonPost;
-    private DatabaseHelper databaseHelper;
     private dbHelper dbhelper;
     private Post post;
 
@@ -51,13 +50,17 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.appCompatButtonPost:
+                post.setName(textInputEditTextPostName.getText().toString().trim());
+                post.setPostDis(textInputEditTextPostDis.getText().toString().trim());
+                post.setPostOwner(textInputEditTextPostOwner.getText().toString().trim());
+                dbhelper.addPost(post);
                 Snackbar.make(nestedScrollView, getString(R.string.success_message), Snackbar.LENGTH_LONG).show();
                 break;
         }
     }
     private void initObjects() {
-        dbHelper dbhelper = new dbHelper(activity);
-        Post post = new Post();
+        dbhelper = new dbHelper(activity);
+        post = new Post();
     }
 
     private void initListeners() {
