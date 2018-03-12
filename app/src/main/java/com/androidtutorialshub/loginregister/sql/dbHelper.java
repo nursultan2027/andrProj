@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.androidtutorialshub.loginregister.model.Post;
+import com.androidtutorialshub.loginregister.model.User;
 
 public class dbHelper extends SQLiteOpenHelper {
 
@@ -38,7 +39,7 @@ public class dbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_POST_TABLE = "CREATE TABLE " + TABLE_POST + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_DIS + " TEXT" + ")";
+                + KEY_DIS + " TEXT" + KEY_OWNER + " TEXT" + ")";
         db.execSQL(CREATE_POST_TABLE);
     }
 
@@ -87,29 +88,53 @@ public class dbHelper extends SQLiteOpenHelper {
     }
 
     // Getting All Contacts
-    public List<Post> getAllPosts() {
-        List<Post> contactList = new ArrayList<Post>();
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_POST;
+    public List<Post> getAllPost() {
+        // array of columns to fetch
+        String[] columns = {
+                KEY_ID,
+                KEY_NAME,
+                KEY_DIS,
+                KEY_OWNER
+        };
+        // sorting orders
+        String sortOrder =
+                KEY_NAME + " ASC";
+        List<Post> postList = new ArrayList<Post>();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        SQLiteDatabase db = this.getReadableDatabase();
 
-        // looping through all rows and adding to list
+        // query the user table
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
+         */
+        Cursor cursor = db.query(TABLE_POST, //Table to query
+                columns,    //columns to return
+                null,        //columns for the WHERE clause
+                null,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+
+
+        // Traversing through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Post contact = new Post();
-                contact.setId(Integer.parseInt(cursor.getString(0)));
-                contact.setName(cursor.getString(1));
-                contact.setPostDis(cursor.getString(2));
-                contact.setPostOwner(cursor.getString(3));
-                // Adding contact to list
-                contactList.add(contact);
+                Post post = new Post();
+                post.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_ID))));
+                post.setName(cursor.getString(cursor.getColumnIndex(KEY_NAME)));
+                post.setPostDis(cursor.getString(cursor.getColumnIndex(KEY_DIS)));
+                post.setPostOwner(cursor.getString(cursor.getColumnIndex(KEY_OWNER)));
+                // Adding user record to list
+                postList.add(post);
             } while (cursor.moveToNext());
         }
+        cursor.close();
+        db.close();
 
-        // return contact list
-        return contactList;
+        // return user list
+        return postList;
     }
 
     // Updating single contact
@@ -144,5 +169,6 @@ public class dbHelper extends SQLiteOpenHelper {
         // return count
         return cursor.getCount();
     }
+
 
 }

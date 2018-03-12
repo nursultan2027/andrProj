@@ -13,9 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.androidtutorialshub.loginregister.R;
-import com.androidtutorialshub.loginregister.adapters.UsersRecyclerAdapter;
 import com.androidtutorialshub.loginregister.model.User;
-import com.androidtutorialshub.loginregister.sql.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +25,6 @@ public class UsersListActivity extends AppCompatActivity implements View.OnClick
     private AppCompatTextView textViewName;
     private RecyclerView recyclerViewUsers;
     private List<User> listUsers;
-    private UsersRecyclerAdapter usersRecyclerAdapter;
-    private DatabaseHelper databaseHelper;
     private AppCompatButton appCompatButtonAddPost;
 
     @Override
@@ -45,7 +41,7 @@ public class UsersListActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.appCompatButtonAddPost:
-                Intent intentPost= new Intent(getApplicationContext(), PostActivity.class);
+                Intent intentPost= new Intent(getApplicationContext(), MainActivity.class);
                 intentPost.putExtra("EMAIL", textViewName.getText().toString().trim());
                 startActivity(intentPost);
                 break;

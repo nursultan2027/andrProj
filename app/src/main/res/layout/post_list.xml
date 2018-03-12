@@ -10,6 +10,27 @@
         android:background="@color/colorPrimary"
         android:gravity="center"
         android:orientation="vertical">
-
     </android.support.v7.widget.LinearLayoutCompat>
+
+    <ListView
+        android:id="@+id/countriesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    </ListView>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/appCompatButtonDel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorTextHint"
+        android:text="Удалить" />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/appCompatButtonUpdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@color/colorTextHint"
+        android:text="Обновить"/>
 </LinearLayout>

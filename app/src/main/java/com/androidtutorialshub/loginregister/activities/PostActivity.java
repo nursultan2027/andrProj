@@ -16,6 +16,7 @@ import android.view.View;
 import com.androidtutorialshub.loginregister.R;
 import com.androidtutorialshub.loginregister.model.Post;
 import com.androidtutorialshub.loginregister.sql.DatabaseHelper;
+import com.androidtutorialshub.loginregister.sql.dataBHelp;
 import com.androidtutorialshub.loginregister.sql.dbHelper;
 
 import java.util.List;
@@ -65,7 +66,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.appCompatButtonShow:
                 Intent intentPost= new Intent(getApplicationContext(), PostListActivity.class);
                 startActivity(intentPost);
-                //                Snackbar.make(nestedScrollView, getString(R.string.success_dis), Snackbar.LENGTH_LONG).show();
                 break;
         }
     }
