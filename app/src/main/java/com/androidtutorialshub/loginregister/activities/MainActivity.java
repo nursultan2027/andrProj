@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    dbcon.insert(name.getText().toString(), surname.getText().toString());
+                    dbcon.insert(name.getText().toString(), surname.getText().toString(), textViewName.getText().toString());
                     load();
                 } catch (Exception e) {
 
@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this,ShowDetails.class);
                     String sendName=c.getString(1);
                     String sendSurname=c.getString(2);
-                    //String sendPhone=c.getString(3);
+                    String sendPhone=c.getString(3);
                     String sendId=c.getString(0);
                     intent.putExtra("sendName",sendName);
                     intent.putExtra("sendSurname",sendSurname);
-                    //intent.putExtra("sendPhone",sendPhone);
+                    intent.putExtra("sendPhone",sendPhone);
                     intent.putExtra("sendId",sendId);
                     startActivity(intent);
                 }
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
 
         }
-        String[] from = new String[]{dbHelper.ID, dbHelper.NAME, dbHelper.SURNAME};
-        int[] to = new int[]{R.id.tvId, R.id.tvName, R.id.tvSurname};
+        String[] from = new String[]{ dbHelper.NAME, dbHelper.SURNAME, dbHelper.PHONE};
+        int[] to = new int[]{ R.id.tvName, R.id.tvSurname, R.id.tvPhone};
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(MainActivity.this, R.layout.showlist, cursor, from, to);
         adapter.notifyDataSetChanged();
         lst = (ListView) findViewById(R.id.lst);
