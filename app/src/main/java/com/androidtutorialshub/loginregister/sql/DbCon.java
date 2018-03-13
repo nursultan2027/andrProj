@@ -79,8 +79,8 @@ public class DbCon {
 
     public class DbHelper extends SQLiteOpenHelper {
 
-        public static final String DB_NAME = "lesson.db";
-        public static final String TABLE_NAME = "example";
+        public static final String DB_NAME = "lesson1.db";
+        public static final String TABLE_NAME = "example1";
         public static final String ID = "_id";
         public static final String NAME = "name";
         public static final String SURNAME = "surname";

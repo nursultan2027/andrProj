@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         btnAdd = (Button) findViewById(R.id.btnAdd);
         textViewName = (TextView) findViewById(R.id.textView);
         dbcon=new DbCon(this);
+        String emailFromIntent = getIntent().getStringExtra("EMAIL");
+        textViewName.setText(emailFromIntent);
         load();
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,13 +77,11 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
 
         }
-        String[] from = new String[]{ dbHelper.NAME, dbHelper.SURNAME, dbHelper.PHONE};
-        int[] to = new int[]{ R.id.tvName, R.id.tvSurname, R.id.tvPhone};
+        String[] from = new String[]{ dbHelper.ID, dbHelper.NAME, dbHelper.SURNAME, dbHelper.PHONE};
+        int[] to = new int[]{ R.id.tvId, R.id.tvName, R.id.tvSurname, R.id.tvPhone};
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(MainActivity.this, R.layout.showlist, cursor, from, to);
         adapter.notifyDataSetChanged();
         lst = (ListView) findViewById(R.id.lst);
         lst.setAdapter(adapter);
-        String emailFromIntent = getIntent().getStringExtra("EMAIL");
-        textViewName.setText(emailFromIntent);
     }
 }
