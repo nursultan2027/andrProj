@@ -12,24 +12,29 @@ import com.androidtutorialshub.loginregister.sql.DbCon;
 
 public class ShowDetails extends Activity {
 
-    EditText etNameDeatil, etSurnameDetail;
+    EditText etNameDeatil, etSurnameDetail,etPhoneDe1tail;
     Button btnDelete, btnUpdate;
     DbCon dbCon = new DbCon(this);
-    String id,name,surname, phone;
+    String id,name,surname, phone, owner;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showdetails);
         etNameDeatil = (EditText) findViewById(R.id.etNameDetail);
         etSurnameDetail = (EditText) findViewById(R.id.etSurnameDetail);
+        etPhoneDe1tail = (EditText) findViewById(R.id.etPhoneDetail);
         btnDelete = (Button) findViewById(R.id.btnDelete);
         btnUpdate = (Button) findViewById(R.id.btnUpdate);
         Intent intent = getIntent();
         name = intent.getStringExtra("sendName");
         surname = intent.getStringExtra("sendSurname");
         id = intent.getStringExtra("sendId");
+        phone = intent.getStringExtra("sendPhone");
         etNameDeatil.setText(name);
         etSurnameDetail.setText(surname);
+        etPhoneDe1tail.setText(phone);
+        owner = intent.getStringExtra("EMAIL");
+        CheckOwner();
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +47,7 @@ public class ShowDetails extends Activity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dbCon.update(Long.parseLong(id),etNameDeatil.getText().toString(),etSurnameDetail.getText().toString());
+                dbCon.update(Long.parseLong(id),etNameDeatil.getText().toString(),etSurnameDetail.getText().toString(), etPhoneDe1tail.getText().toString());
                 returnHome();
             }
         });
@@ -51,6 +56,12 @@ public class ShowDetails extends Activity {
     public void returnHome(){
         Intent intent=new Intent(this,MainActivity.class);
         startActivity(intent);
+    }
+    public void CheckOwner(){
+        if (owner.length()!=phone.length()){
+            btnUpdate.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.GONE);
+        }
     }
 
 }

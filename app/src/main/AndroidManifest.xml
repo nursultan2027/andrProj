@@ -24,12 +24,6 @@
             android:name=".activities.UsersListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.PostActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".activities.PostListActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
