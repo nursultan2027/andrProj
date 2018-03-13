@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     EditText name, surname;
     TextView textViewName;
     Button btnAdd;
+    String emailFromIntent;
     ListView lst;
     DbCon dbcon;
     DbCon.DbHelper dbHelper;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         btnAdd = (Button) findViewById(R.id.btnAdd);
         textViewName = (TextView) findViewById(R.id.textView);
         dbcon=new DbCon(this);
-        String emailFromIntent = getIntent().getStringExtra("EMAIL");
+        emailFromIntent = getIntent().getStringExtra("EMAIL");
         textViewName.setText(emailFromIntent);
         load();
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     String sendId=c.getString(0);
                     intent.putExtra("sendName",sendName);
                     intent.putExtra("sendSurname",sendSurname);
+                    intent.putExtra("EMAIL", textViewName.getText().toString());
                     intent.putExtra("sendPhone",sendPhone);
                     intent.putExtra("sendId",sendId);
                     startActivity(intent);
