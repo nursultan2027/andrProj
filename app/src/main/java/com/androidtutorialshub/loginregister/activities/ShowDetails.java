@@ -46,7 +46,6 @@ public class ShowDetails extends Activity {
                 returnHome();
             }
         });
-
     }
 
     public void returnHome(){
